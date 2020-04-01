@@ -1,7 +1,7 @@
 import React from "react";
 import BookList from "./BookList";
-import { search, update } from "../BooksAPI";
-import * as _ from "lodash";
+import { search, update, getAll } from "../BooksAPI";
+import _ from "lodash";
 import Loader from "./Loader";
 
 class Search extends React.Component {
@@ -12,10 +12,23 @@ class Search extends React.Component {
       books: [],
       isLoading: false,
       searchTearm: "",
-      message: "Start Searching For New Book"
+      message: "Start Searching For New Book",
+      allBooks: []
     };
 
     this.onChangeDebounce = _.debounce(value => this.onChange(value), 500);
+  }
+
+  componentDidMount(){
+    getAll()
+      .then(allBooks => {
+        this.setState({
+          allBooks          
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   onChange = query => {
@@ -86,7 +99,7 @@ class Search extends React.Component {
   };
 
   render() {
-    const { books, isLoading, message } = this.state;
+    const { books, isLoading, message, allBooks } = this.state;
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -109,7 +122,7 @@ class Search extends React.Component {
           ) : message.length !== 0 ? (
             <div className="search-not-found"> <span className="search-text"> {message} </span></div>
           ) : (
-            <BookList books={books} updateShelf={this.updateShelf} />
+            <BookList books={books} updateShelf={this.updateShelf} allBooks={allBooks} />
           )}
         </div>
       </div>

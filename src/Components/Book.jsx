@@ -22,7 +22,7 @@ class Book extends React.Component {
               backgroundImage: `url(${thumbnail})`
             }}
           ></div>
-          <BookChanger updateShelf={updateShelf} book={book} />
+          <BookChanger updateShelf={updateShelf} book={book} allBooks={this.props.allBooks} />
         </div>
         <div className="book-title">{book.title}</div>
         <div className="book-authors">{book.authors}</div>
@@ -35,5 +35,6 @@ export default Book;
 
 Book.propTypes = {
   book: PropTypes.object,
-  updateShelf: PropTypes.func
+  updateShelf: PropTypes.func,
+  allBooks: PropTypes.array
 };

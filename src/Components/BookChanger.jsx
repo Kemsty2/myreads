@@ -7,14 +7,17 @@ class BookChanger extends React.Component {
     super(props);
 
     this.state = {
-      shelf: "move"
+      shelf: "none",      
     }
   }
 
   componentDidMount(){
-    this.setState({
-      shelf: this.props.book.shelf
-    })
+    const book = this.props.allBooks.filter(book => book.id === this.props.book.id);
+    if(book && book.length !== 0){
+      this.setState({
+        shelf: book[0].shelf
+      });
+    }
   }
 
   onChange = (e) => {
@@ -47,5 +50,6 @@ export default BookChanger;
 
 BookChanger.propTypes = {
   updateShelf: PropTypes.func,
-  book: PropTypes.object
+  book: PropTypes.object,
+  allBooks: PropTypes.array
 }

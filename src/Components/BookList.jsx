@@ -12,7 +12,7 @@ class BookList extends React.Component {
         {this.props.books.map((book, idx) => {
           return (
             <li key={idx}>
-              <Book book={book} updateShelf={this.props.updateShelf} />
+              <Book book={book} updateShelf={this.props.updateShelf} allBooks={this.props.allBooks} />
             </li>
           );
         })}
@@ -26,5 +26,6 @@ export default BookList;
 BookList.propTypes = {
   books: PropTypes.array,
   isLoading: PropTypes.bool,
-  updateShelf: PropTypes.func
+  updateShelf: PropTypes.func,
+  allBooks: PropTypes.array
 };
